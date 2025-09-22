@@ -1,536 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Analysis Portfolio</title>
     <style>
-        :root {
-            --primary: #3a86ff;
-            --secondary: #8338ec;
-            --dark: #212529;
-            --light: #f8f9fa;
-            --success: #06d6a0;
-            --warning: #ffbe0b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .header-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://placehold.co/1920x1080') center/cover no-repeat;
-            opacity: 0.1;
-            z-index: 1;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: center;
-            padding: 1rem 0;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
+      :root {
+        --primary: #3a86ff;
+        --secondary: #8338ec;
+        --dark: #212529;
+        --light: #f8f9fa;
+        --success: #06d6a0;
+        --warning: #ffbe0b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .header-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("bg.jpg") center/cover no-repeat; /* لو عندك خلفية */
+        opacity: 0.1;
+        z-index: 1;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+        background-color: rgba(58, 134, 255, 0.1);
+      }
+
+      section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        margin: 1rem auto;
+        border-radius: 2px;
+      }
+
+      .about-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .about-text {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .profile-image {
+        flex: 1;
+        min-width: 300px;
+        text-align: center;
+      }
+
+      .profile-image img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border: 5px solid white;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skill-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .skill-card h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .skill-progress {
+        height: 8px;
+        background-color: rgba(58, 134, 255, 0.2);
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border-radius: 4px;
+        transition: width 1s ease;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .project-image {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .project-card:hover .project-image img {
+        transform: scale(1.05);
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+
+      .tag {
+        padding: 0.25rem 0.75rem;
+        background-color: rgba(58, 134, 255, 0.1);
+        color: var(--primary);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .contact-form {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      button {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      footer {
+        background-color: var(--dark);
+        color: white;
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 4rem;
+      }
+
+      @media (max-width: 768px) {
         nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
+          gap: 1rem;
         }
-        
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-            background-color: rgba(58, 134, 255, 0.1);
-        }
-        
-        section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            margin: 1rem auto;
-            border-radius: 2px;
-        }
-        
+
         .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: center;
+          flex-direction: column;
         }
-        
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .profile-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        
-        .profile-image img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border: 5px solid white;
-        }
-        
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .skill-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .skill-card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .skill-progress {
-            height: 8px;
-            background-color: rgba(58, 134, 255, 0.2);
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 4px;
-            transition: width 1s ease;
-        }
-        
+
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+          grid-template-columns: 1fr;
         }
-        
-        .project-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .project-image {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
-        }
-        
-        .project-content {
-            padding: 1.5rem;
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        .tag {
-            padding: 0.25rem 0.75rem;
-            background-color: rgba(58, 134, 255, 0.1);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .contact-form {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        button {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .chart-container {
-            height: 300px;
-            margin: 2rem 0;
-        }
-        
-        footer {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 4rem;
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        .hero-image img {
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-          .hero-image {
-                margin-top: 50px;
-            }
-            .hero-image img {
-                width: 250px;
-                height: 250px;
-            }
+      }
+      .hero-image {
+        flex: 1;
+        text-align: center;
+      }
+      .hero-image img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="hero-image">
-        <img src="C:\Users\XPRISTO\Desktop\protfolio\photo.jpg" alt="Professional portrait of a data analyst in a business casual outfit, smiling confidently with a modern workplace background" />
-        </div>
-         
-        <div class="header-content">
-            <h1>Data Analysis Portfolio</h1>
-            <p>Transforming raw data into actionable insights</p>
-        </div>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Hi, I'm Data Analyst</h3>
-                <p>Recent Business Information Systems graduate with strong skills in programming, front-end development,<br>
-                    <p>
-                         and customer service. Proficient in software tools, accounting systems, <br>
-                         <p>
-                            programming web development(frontend) and data analysis. Currently enhancing my data analytics capabilities through a specialized training program at the National Telecommunication Institute (NTI) under the Digital Egypt Youth initiative.
-                    </p>
-                         </p>
-            </p>
-                </div>
-            
-        </div>
-    </section>
-    
-    <section id="skills">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h3>Python</h3>
-                <div class="skill-progress">
-                    <div class="progress-bar" style="width: 95%"></div>
-                </div>
-                <p>Pandas, NumPy,Matplotlib, Seaborn</p>
-            </div>
-            <div class="skill-card">
-                <h3>SQL</h3>
-                <div class="skill-progress">
-                    <div class="progress-bar" style="width: 90%"></div>
-                </div>
-                <p>Query optimization, database design, ETL processes</p>
-            </div>
-            <div class="skill-card">
-                <h3>Data Visualization</h3>
-                <div class="skill-progress">
-                    <div class="progress-bar" style="width: 85%"></div>
-                </div>
-                <p>Matplotlib, Seaborn, NumPy, Tableau</p>
-            </div>
-            <div class="skill-card">
-                <h3>power bi </h3>
-                <div class="skill-progress">
-                    <div class="progress-bar" style="width: 80%"></div>
-                </div>
-                <p>Data visualization, creat insights</p>
-            </div>
-            <div class="skill-card">
-                <h3>front-end</h3>
-                <div class="skill-progress">
-                    <div class="progress-bar" style="width: 75%"></div>
-                </div>
-                <p>html, css, js, react</p>
-            </div>
-            <div class="skill-card">
-                <h3>Statistics</h3>
-                <div class="skill-progress">
-                    <div class="progress-bar" style="width: 85%"></div>
-                </div>
-                <p>Hypothesis testing, A/B testing, experimental design</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="projects">
-        <h2 class="section-title">sales supermarket Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="Screenshot 2025-05-27 204054.png" alt="Dashboard showing sales performance metrics with multiple interactive charts">
-                </div>
-                <div class="project-content">
-                    <h3>Retail Sales Analysis Dashboard</h3>
-                    <p>Interactive dashboard analyzing  sales supermarket </p>
-                    <div class="project-tags">
-                        <span class="tag">Excel</span>
-                        <span class="tag">data cleaning</span>
-                        <span class="tag">visualization</span>
-                    </div>
-                  
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="C:\Users\XPRISTO\Desktop\protfolio\Screenshot 2025-07-31 163859.png" alt="Network graph visualization showing customer segmentation patterns">
-                </div>
-                <div class="project-content">
-                    <h3>Company Data</h3>
-                    <p>Unsupervised learning model Company Data </p>
-                    <div class="project-tags">
-                        <span class="tag">Excel</span>
-                        <span class="tag">data cleaning</span>
-                        <span class="tag">visualization</span>
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                        <a href="https://www.kaggle.com/code/yasmeenelshater/covid-19/edit" class="btn" style="padding: 8px 16px;">View Project</a>
-                </div>
-                <div class="project-content">
-                    <h3>Python Project</h3>
-                    <p> Using Matplotlib, Seaborn, NumPy to make data cleaning and visualization .</p>
-                    <div class="project-tags">
-                        <span class="tag">Matplotlib</span>
-                        <span class="tag">NumPy</span>
-                        <span class="tag"> Seaborn</span>
-                    </div>
-                  
-            </div>
-        </div>
-    </section>
-    
-    <section id="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-form">
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
-    
-    <footer>
-        <p>&copy; 2023 Data Analysis Portfolio. All rights reserved.</p>
-        <p>Connect with me on <a href="#" style="color: var(--light);">LinkedIn</a> | <a href="#" style="color: var(--light);">GitHub</a> | <a href="#" style="color: var(--light);">Twitter</a></p>
-    </footer>
-    
-    <script>
-        // Animate skill bars on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const skillCards = document.querySelectorAll('.skill-card');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const progressBar = entry.target.querySelector('.progress-bar');
-                        const width = progressBar.style.width;
-                        progressBar.style.width = '0';
-                        setTimeout(() => {
-                            progressBar.style.width = width;
-                        }, 100);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            skillCards.forEach(card => {
-                observer.observe(card);
-            });
-            
-            // Form submission
-            const contactForm = document.getElementById('contactForm');
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Thank you for your message! I will get back to you soon.');
-                contactForm.reset();
-            });
-        });
-        
-        function showDemo(project) {
-            alert(`Demo for ${project} would be displayed here in a real implementation.`);
-        }
-        
-        // In a real portfolio, you would add actual chart implementations here
-        // using libraries like Chart.js or D3.js
-    </script>
-</body>
-</html>
+      <div class="hero-image">
+        <img src="photo.jpg" alt="Professional portrait of a data analyst" />
+      </div>
 
+      <div class="header-content">
+        <h1>Data Analysis Portfolio</h1>
+        <p>Transforming raw data into actionable insights</p>
+      </div>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Hi, I'm Data Analyst</h3>
+          <p>
+            Recent Business Information Systems graduate with strong skills in
+            programming, front-end development, and customer service. Proficient
+            in software tools, accounting systems, programming web development
+            (frontend) and data analysis. Currently enhancing my data analytics
+            capabilities through a specialized training program at the National
+            Telecommunication Institute (NTI) under the Digital Egypt Youth
+            initiative.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Python</h3>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 95%"></div>
+          </div>
+          <p>Pandas, NumPy, Matplotlib, Seaborn</p>
+        </div>
+        <div class="skill-card">
+          <h3>SQL</h3>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 90%"></div>
+          </div>
+          <p>Query optimization, database design, ETL processes</p>
+        </div>
+        <div class="skill-card">
+          <h3>Data Visualization</h3>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 85%"></div>
+          </div>
+          <p>Matplotlib, Seaborn, NumPy, Tableau</p>
+        </div>
+        <div class="skill-card">
+          <h3>Power BI</h3>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 80%"></div>
+          </div>
+          <p>Data visualization, create insights</p>
+        </div>
+        <div class="skill-card">
+          <h3>Front-End</h3>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 75%"></div>
+          </div>
+          <p>HTML, CSS, JS, React</p>
+        </div>
+        <div class="skill-card">
+          <h3>Statistics</h3>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 85%"></div>
+          </div>
+          <p>Hypothesis testing, A/B testing, experimental design</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Sales Supermarket Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img
+              src="Screenshot-1.png"
+              alt="Dashboard showing sales performance metrics"
+            />
+          </div>
+          <div class="project-content">
+            <h3>Retail Sales Analysis Dashboard</h3>
+            <p>Interactive dashboard analyzing supermarket sales</p>
+            <div class="project-tags">
+              <span class="tag">Excel</span>
+              <span class="tag">Data Cleaning</span>
+              <span class="tag">Visualization</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-image">
+            <img
+              src="Screenshot-2.png"
+              alt="Network graph visualization showing customer segmentation"
+            />
+          </div>
+          <div class="project-content">
+            <h3>Company Data</h3>
+            <p>Unsupervised learning model on company dataset</p>
+            <div class="project-tags">
+              <span class="tag">Excel</span>
+              <span class="tag">Data Cleaning</span>
+              <span class="tag">Visualization</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-image">
+            <a
+              href="https://www.kaggle.com/code/yasmeenelshater/covid-19/edit"
+              class="btn"
+              style="padding: 8px 16px"
+              >View Project</a
+            >
+            <a
+              href="https://www.kaggle.com/code/yasmeenelshater/diabetes"
+              class="btn"
+              style="padding: 8px 16px"
+              >View Project</a
+            >
+            <a
+              href="https://www.kaggle.com/code/yasmeenelshater/https-www-canva-com-templates-eagkju6rbag-pink"
+              class="btn"
+              style="padding: 8px 16px"
+              >View Project</a
+            >
+            <a
+              href="https://www.kaggle.com/code/yasmeenelshater/salaries/edit"
+              class="btn"
+              style="padding: 8px 16px"
+              >View Project</a
+            >
+            <a
+              href="https://www.kaggle.com/code/yasmeenelshater/barazalin/edit"
+              class="btn"
+              style="padding: 8px 16px"
+              >View Project</a
+            >
+          </div>
+          <div class="project-content">
+            <h3>Python Project</h3>
+            <p>
+              Using Matplotlib, Seaborn, NumPy to make data cleaning and
+              visualization.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Matplotlib</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">Seaborn</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2023 Data Analysis Portfolio. All rights reserved.</p>
+
+      <p>
+        Connect with me on
+
+        <a
+          href="https://www.linkedin.com/in/yasmeen-ali-b5156727b/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: var(--light)"
+          >LinkedIn</a
+        >
+        |
+
+        <a
+          href="https://github.com/Yasmeenalielshater"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: var(--light)"
+          >GitHub</a
+        >
+        |
+
+        <a
+          href="mailto:yasmeenelshater2002@gmail.com"
+          rel="noopener noreferrer"
+          style="color: var(--light)"
+        >
+          Gmail
+        </a>
+      </p>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const skillCards = document.querySelectorAll(".skill-card");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const progressBar = entry.target.querySelector(".progress-bar");
+                const width = progressBar.style.width;
+                progressBar.style.width = "0";
+                setTimeout(() => {
+                  progressBar.style.width = width;
+                }, 100);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        skillCards.forEach((card) => {
+          observer.observe(card);
+        });
+
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Thank you for your message! I will get back to you soon.");
+          contactForm.reset();
+        });
+      });
+    </script>
+  </body>
+</html>
